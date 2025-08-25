@@ -85,6 +85,80 @@ function selectService(serviceType) {
     showScreen('dogInfo');
 }
 
+// Basic Groom Direct Checkout
+function selectBasicGroom() {
+    appState.selectedPackage = {
+        type: 'basic',
+        ...servicePackages.basic
+    };
+    
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    const dateInput = document.getElementById('basic-date');
+    if (dateInput) {
+        dateInput.min = today;
+    }
+    
+    showScreen('basic-checkout');
+}
+
+// Submit Basic Booking
+function submitBasicBooking(event) {
+    event.preventDefault();
+    
+    const submitBtn = document.getElementById('submit-basic-booking-btn');
+    const submitText = submitBtn.querySelector('.submit-text');
+    const submitLoading = submitBtn.querySelector('.submit-loading');
+    
+    // Show loading state
+    submitText.style.display = 'none';
+    submitLoading.style.display = 'inline-flex';
+    submitBtn.disabled = true;
+    
+    const formData = new FormData(event.target);
+    
+    // Store booking data
+    appState.basicBooking = {
+        service: 'Basic Groom',
+        price: '$45',
+        duration: '1-2 hours',
+        customerName: formData.get('customerName'),
+        phone: formData.get('phone'),
+        email: formData.get('email'),
+        dogName: formData.get('dogName'),
+        breed: formData.get('breed'),
+        preferredDate: formData.get('preferredDate'),
+        preferredTime: formData.get('preferredTime'),
+        specialNotes: formData.get('specialNotes'),
+        timestamp: new Date().toISOString()
+    };
+    
+    // Simulate booking processing
+    setTimeout(() => {
+        // Update confirmation screen with booking details
+        updateBasicConfirmation();
+        showScreen('basic-confirmation');
+        
+        // Reset form and button state
+        event.target.reset();
+        submitText.style.display = 'inline';
+        submitLoading.style.display = 'none';
+        submitBtn.disabled = false;
+    }, 2000);
+}
+
+// Update Basic Confirmation Screen
+function updateBasicConfirmation() {
+    const booking = appState.basicBooking;
+    
+    // Update confirmation details
+    document.getElementById('confirm-basic-service').textContent = booking.service;
+    document.getElementById('confirm-basic-customer').textContent = booking.customerName;
+    document.getElementById('confirm-basic-dog').textContent = `${booking.dogName}${booking.breed ? ` (${booking.breed})` : ''}`;
+    document.getElementById('confirm-basic-datetime').textContent = `${booking.preferredDate} at ${booking.preferredTime}`;
+    document.getElementById('confirm-basic-total').textContent = booking.price;
+}
+
 // Form Handlers
 function setupFormHandlers() {
     // Dog Information Form

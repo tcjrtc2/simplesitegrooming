@@ -376,7 +376,7 @@
                 </div>
 
                 <div class="services-grid">
-                    <div class="service-card" onclick="selectService('basic')">
+                    <div class="service-card" onclick="selectBasicGroom()">
                         <div class="service-icon">🐕</div>
                         <h3>Basic Groom</h3>
                         <div class="service-price">$45</div>
@@ -390,7 +390,6 @@
                     </div>
 
                     <div class="service-card custom-service featured" onclick="showCustomService()" style="min-height: 320px;">
-                        <div class="service-badge">Most Popular</div>
                         <div class="service-icon">🎨</div>
                         <h3>Custom Service</h3>
                         <div class="service-price">Starting at $35</div>
@@ -402,19 +401,6 @@
                         </ul>
                         <div class="service-duration">🛠️ Build Your Package</div>
                         <div class="custom-service-badge">NEW!</div>
-                    </div>
-
-                    <div class="service-card" onclick="selectService('luxury')">
-                        <div class="service-icon">👑</div>
-                        <h3>Luxury Spa</h3>
-                        <div class="service-price">$120</div>
-                        <ul class="service-features">
-                            <li>Everything in Premium</li>
-                            <li>Deep Conditioning Treatment</li>
-                            <li>Paw Treatment</li>
-                            <li>Bandana or Bow Tie</li>
-                        </ul>
-                        <div class="service-duration">Duration: 3-4 hours</div>
                     </div>
                 </div>
             </div>
@@ -438,7 +424,7 @@
                     <!-- Price Calculator -->
                     <div class="price-calculator">
                         <div class="price-display">
-                            <span class="price-label">Total Price:</span>
+                            <span class="price-label">Estimated Total Price:</span>
                             <span class="price-amount" id="custom-total-price">$0</span>
                         </div>
                         <div class="price-duration">
@@ -635,7 +621,7 @@
                         </div>
                         <div class="total-summary">
                             <div class="total-row">
-                                <span class="total-label">Total Price:</span>
+                                <span class="total-label">Estimated Total Price:</span>
                                 <span class="total-price" id="checkout-total-price">$0</span>
                             </div>
                             <div class="total-row">
@@ -689,14 +675,28 @@
                                     <label for="checkout-time">Preferred Time</label>
                                     <select id="checkout-time" name="preferredTime" required>
                                         <option value="">Select preferred time</option>
+                                        <option value="8:00 AM">8:00 AM</option>
+                                        <option value="8:30 AM">8:30 AM</option>
                                         <option value="9:00 AM">9:00 AM</option>
+                                        <option value="9:30 AM">9:30 AM</option>
                                         <option value="10:00 AM">10:00 AM</option>
+                                        <option value="10:30 AM">10:30 AM</option>
                                         <option value="11:00 AM">11:00 AM</option>
+                                        <option value="11:30 AM">11:30 AM</option>
                                         <option value="12:00 PM">12:00 PM</option>
+                                        <option value="12:30 PM">12:30 PM</option>
                                         <option value="1:00 PM">1:00 PM</option>
+                                        <option value="1:30 PM">1:30 PM</option>
                                         <option value="2:00 PM">2:00 PM</option>
+                                        <option value="2:30 PM">2:30 PM</option>
                                         <option value="3:00 PM">3:00 PM</option>
+                                        <option value="3:30 PM">3:30 PM</option>
                                         <option value="4:00 PM">4:00 PM</option>
+                                        <option value="4:30 PM">4:30 PM</option>
+                                        <option value="5:00 PM">5:00 PM</option>
+                                        <option value="5:30 PM">5:30 PM</option>
+                                        <option value="6:00 PM">6:00 PM</option>
+                                        <option value="6:30 PM">6:30 PM</option>
                                     </select>
                                 </div>
                             </div>
@@ -715,6 +715,140 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-full" id="submit-booking-btn">
+                                <span class="submit-text">Complete Booking</span>
+                                <span class="submit-loading" style="display: none;">
+                                    <span class="spinner"></span> Processing Booking...
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Basic Groom Checkout Screen -->
+        <div id="basic-checkout-screen" class="screen">
+            <div class="checkout-container">
+                <div class="checkout-header">
+                    <button class="btn btn-back" onclick="showScreen('services')">← Back to Services</button>
+                    <h1>Book Your Basic Groom</h1>
+                    <p>Complete your booking for our essential grooming package</p>
+                </div>
+
+                <div class="checkout-content">
+                    <!-- Service Summary -->
+                    <div class="service-summary-section">
+                        <h2>Your Service</h2>
+                        <div class="selected-services-list">
+                            <div class="selected-service-item">
+                                <div class="service-info">
+                                    <span class="service-name">Basic Groom</span>
+                                    <div class="service-details-list">
+                                        <span class="service-detail">• Bath & Dry</span>
+                                        <span class="service-detail">• Nail Trim</span>
+                                        <span class="service-detail">• Ear Cleaning</span>
+                                        <span class="service-detail">• Basic Brush Out</span>
+                                    </div>
+                                </div>
+                                <span class="service-total">$45</span>
+                            </div>
+                        </div>
+                        <div class="total-summary">
+                            <div class="total-row">
+                                <span class="total-label">Total Price:</span>
+                                <span class="total-price">$45</span>
+                            </div>
+                            <div class="total-row">
+                                <span class="total-label">Estimated Duration:</span>
+                                <span class="total-duration">1-2 hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Customer Information Form -->
+                    <div class="customer-info-section">
+                        <h2>Your Information</h2>
+                        <form id="basic-checkout-form" onsubmit="submitBasicBooking(event)">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="basic-customer-name">Your Name *</label>
+                                    <input type="text" id="basic-customer-name" name="customerName" required placeholder="Enter your full name">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="basic-phone">Phone Number *</label>
+                                    <input type="tel" id="basic-phone" name="phone" required placeholder="(555) 123-4567">
+                                </div>
+                                <div class="form-group">
+                                    <label for="basic-email">Email Address</label>
+                                    <input type="email" id="basic-email" name="email" placeholder="your.email@example.com">
+                                </div>
+                            </div>
+
+                            <h3>Pet Information</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="basic-dog-name">Dog's Name *</label>
+                                    <input type="text" id="basic-dog-name" name="dogName" required placeholder="Enter your dog's name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="basic-breed">Breed</label>
+                                    <input type="text" id="basic-breed" name="breed" placeholder="e.g., Golden Retriever, Mixed">
+                                </div>
+                            </div>
+
+                            <h3>Appointment Preferences</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="basic-date">Preferred Date</label>
+                                    <input type="date" id="basic-date" name="preferredDate" min="" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="basic-time">Preferred Time</label>
+                                    <select id="basic-time" name="preferredTime" required>
+                                        <option value="">Select preferred time</option>
+                                        <option value="8:00 AM">8:00 AM</option>
+                                        <option value="8:30 AM">8:30 AM</option>
+                                        <option value="9:00 AM">9:00 AM</option>
+                                        <option value="9:30 AM">9:30 AM</option>
+                                        <option value="10:00 AM">10:00 AM</option>
+                                        <option value="10:30 AM">10:30 AM</option>
+                                        <option value="11:00 AM">11:00 AM</option>
+                                        <option value="11:30 AM">11:30 AM</option>
+                                        <option value="12:00 PM">12:00 PM</option>
+                                        <option value="12:30 PM">12:30 PM</option>
+                                        <option value="1:00 PM">1:00 PM</option>
+                                        <option value="1:30 PM">1:30 PM</option>
+                                        <option value="2:00 PM">2:00 PM</option>
+                                        <option value="2:30 PM">2:30 PM</option>
+                                        <option value="3:00 PM">3:00 PM</option>
+                                        <option value="3:30 PM">3:30 PM</option>
+                                        <option value="4:00 PM">4:00 PM</option>
+                                        <option value="4:30 PM">4:30 PM</option>
+                                        <option value="5:00 PM">5:00 PM</option>
+                                        <option value="5:30 PM">5:30 PM</option>
+                                        <option value="6:00 PM">6:00 PM</option>
+                                        <option value="6:30 PM">6:30 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="basic-notes">Special Notes or Requests</label>
+                                <textarea id="basic-notes" name="specialNotes" rows="4" placeholder="Any additional information about your dog's needs, behavior, or special requests for the grooming session..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="basic-terms" required>
+                                    <span class="checkmark"></span>
+                                    I agree to the terms and conditions and confirm that the information provided is accurate.
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-full" id="submit-basic-booking-btn">
                                 <span class="submit-text">Complete Booking</span>
                                 <span class="submit-loading" style="display: none;">
                                     <span class="spinner"></span> Processing Booking...
@@ -775,6 +909,54 @@
                 </div>
             </div>
         </div>
+
+    <!-- Basic Groom Confirmation Screen -->
+    <div id="basic-confirmation" class="screen">
+        <div class="confirmation-header">
+            <div class="success-icon">✓</div>
+            <h2>Booking Confirmed!</h2>
+            <p>Your basic grooming appointment has been scheduled.</p>
+        </div>
+        
+        <div class="confirmation-details">
+            <h3>Appointment Details</h3>
+            <div class="detail-row">
+                <span class="label">Service:</span>
+                <span class="value" id="confirm-basic-service">Basic Groom</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Customer:</span>
+                <span class="value" id="confirm-basic-customer">-</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Dog:</span>
+                <span class="value" id="confirm-basic-dog">-</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Date & Time:</span>
+                <span class="value" id="confirm-basic-datetime">-</span>
+            </div>
+            <div class="detail-row total">
+                <span class="label">Total:</span>
+                <span class="value" id="confirm-basic-total">$45</span>
+            </div>
+        </div>
+        
+        <div class="confirmation-actions">
+            <button class="primary-button" onclick="showScreen('welcome')">
+                Book Another Service
+            </button>
+            <button class="secondary-button" onclick="window.print()">
+                Print Confirmation
+            </button>
+        </div>
+        
+        <div class="contact-info">
+            <h4>Questions About Your Appointment?</h4>
+            <p>Call us at <a href="tel:+1234567890">(123) 456-7890</a></p>
+            <p>We'll send you a confirmation email shortly.</p>
+        </div>
+    </div>
 
         <!-- Dog Information Screen -->
         <div id="dog-info-screen" class="screen">
